@@ -13,7 +13,7 @@ RUN echo postfix postfix/main_mailer_type string "'Internet Site'" | debconf-set
         autoconf                            \
         automake                            \
         rsyslog                                  \
-        initscripts                           \
+#        initscripts                           \
                                                 && \
     apt-get clean && rm -Rf /var/lib/apt/lists/*
 # download NLS
