@@ -38,4 +38,4 @@ ADD start.sh /start.sh
 RUN chmod 755 /start.sh
 RUN echo "Europe/Paris" > /etc/timezone
 RUN echo "alias ssh='ssh -o StrictHostKeyChecking=accept-new'" >> /etc/bash.bashrc
-CMD ["/start.sh"]
+CMD [ "bash", "-c", "/usr/local/bin/update_hosts.sh &&  /start.sh" ]
