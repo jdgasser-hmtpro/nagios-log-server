@@ -13,9 +13,25 @@ RUN echo postfix postfix/main_mailer_type string "'Internet Site'" | debconf-set
         autoconf                            \
         automake                            \
         rsyslog                                  \
+        iproute2                                \
+        systemd                                \
 #        initscripts                           \
                                                 && \
     apt-get clean && rm -Rf /var/lib/apt/lists/*
+
+# Activer systemd
+RUN rm -f /lib/systemd/system/multi-user.target.wants/* \
+    /etc/systemd/system/*.wants/* \
+    /lib/systemd/system/local-fs.target.wants/* \
+    /lib/systemd/system/sockets.target.wants/*udev* \
+    /lib/systemd/system/sockets.target.wants/*initctl* \
+    /lib/systemd/system/sysinit.target.wants/systemd-tmpfiles-setup* \
+    /lib/systemd/system/systemd-updatedb.service
+
+# Définir le point d'entrée pour démarrer systemd
+ENTRYPOINT ["/lib/systemd/systemd"]
+CMD ["--system", "--unit=multi-user.target"]
+
 # download NLS
 WORKDIR /tmp
 RUN wget https://assets.nagios.com/downloads/nagios-log-server/nagioslogserver-latest.tar.gz
