@@ -4,7 +4,6 @@ MAINTAINER Jean-Daniel Gasser <jdgasser@gmail.com>
 #Variables
 ENV NAGIOS_NLS_FQDN            nagios-nls.hmt-pro.com
 # install required packages
-RUN yum -y install wget tar rsyslog initscripts; yum clean all
 RUN echo postfix postfix/main_mailer_type string "'Internet Site'" | debconf-set-selections  && \
     echo postfix postfix/mynetworks string "127.0.0.0/8" | debconf-set-selections            && \
     echo postfix postfix/mailname string ${NAGIOS_NLS_FQDN} | debconf-set-selections             && \
