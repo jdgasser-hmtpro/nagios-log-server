@@ -35,6 +35,9 @@ EXPOSE 80 443 9300:9400 3515 5544 2056 2057 5544/udp
 # configure start script
 ADD start.sh /start.sh
 RUN chmod 755 /start.sh
+COPY update_hosts.sh /usr/local/bin/
+COPY update_ssh.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/update_*
 RUN echo "Europe/Paris" > /etc/timezone
 RUN echo "alias ssh='ssh -o StrictHostKeyChecking=accept-new'" >> /etc/bash.bashrc
 CMD [ "bash", "-c", "/usr/local/bin/update_hosts.sh &&  /start.sh" ]
